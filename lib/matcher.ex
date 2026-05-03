@@ -9,7 +9,7 @@ defmodule Matcher do
     cond do
       buy.quantity > sell.quantity ->
         new_buy = %{buy | quantity: buy.quantity - sell.quantity}
-
+        
         match_order(new_buy, remaining_sells)
       buy.quantity < sell.quantity ->
         remaining_sell = %{sell | quantity: sell.quantity - buy.quantity}
