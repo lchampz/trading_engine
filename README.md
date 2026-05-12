@@ -51,57 +51,18 @@ Teste automatizado:
 mix test
 ```
 
-Estado atual da suite:
+## Demo visual no terminal
 
-- O teste existente falha porque `TradingEngine.hello/0` nao esta implementada.
-- O `OrderBook` tambem emite warnings de comportamento incompleto, porque a interface GenServer ainda nao foi fechada.
+Existe uma demo nativa em Elixir que sobe varios nodes concorrentes, gera ordens aleatorias e desenha o book real da engine no terminal em tempo real.
 
-Validacao pratica recomendada enquanto o fluxo publico nao existe:
+Para abrir, rode:
 
-- Criar ordens em IEx com `Order.new/4`.
-- Testar o matching manualmente chamando `Matcher.match_order/2`.
-- Verificar se a ordenacao esperada do livro continua consistente quando novas ordens sao inseridas.
-
-## O que falta fazer
-
-### Para o projeto ficar utilizavel
-
-- Expor uma API publica em `TradingEngine` para receber, validar e processar ordens.
-- Conectar `OrderBook` ao fluxo real de insercao, remocao e consulta de ordens.
-- Definir claramente as operacoes permitidas: criar ordem, cancelar ordem, consultar livro e consultar historico.
-- Tratar casos de erro e validacao de entrada, como side invalido, quantidade negativa e preco ausente.
-- Ajustar os tipos e retornos do matcher para cobrir match parcial, match total e sobra de quantidade.
-
-### Para distribuir com seguranca
-
-- Completar metadados do pacote em `mix.exs`.
-- Adicionar descricao do pacote, links do projeto, licenca e arquivos de publicacao.
-- Revisar versao e estrategia de release antes de publicar no Hex.
-- Escrever documentacao da API publica com exemplos reproduziveis.
-
-### Para testar melhor
-
-- Corrigir ou substituir o teste atual que chama `TradingEngine.hello/0`.
-- Cobrir `Order.new/4` com testes de conversao de preco e timestamp.
-- Cobrir os cenarios de matching parcial, total e sem cruzamento.
-- Adicionar testes do livro de ordens para ordem de ordenacao e atualizacao de estado.
-- Criar testes de integracao para o fluxo completo de entrada de ordem ate o update do livro.
-
-## Instalacao
-
-Se o pacote for publicado no Hex, ele pode ser usado adicionando a dependencia abaixo ao `mix.exs` de outro projeto:
-
-```elixir
-def deps do
-  [
-    {:trading_engine, "~> 0.1.0"}
-  ]
-end
+```bash
+mix demo
 ```
 
-## Proximos passos sugeridos
+Voce tambem pode ajustar o numero de nodes e a velocidade:
 
-1. Definir a API publica do motor de trading.
-2. Escrever testes de matching e de livro de ordens.
-3. Corrigir a base de publicacao no Hex e documentar o fluxo de uso.
-
+```bash
+mix demo --nodes 7 --speed 1.4
+```
